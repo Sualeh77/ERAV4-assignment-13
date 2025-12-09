@@ -7,7 +7,7 @@ sdk: gradio
 sdk_version: 6.0.1
 app_file: app.py
 pinned: false
-short_description: A Llama based SmolLM2-135M Transformer (Decoder only) 135M model trained from scratch on tiny shakespear data for fun
+short_description: A Llama based SmolLM2-135M Transformer (Decoder only)
 ---
 
 # SmolLM2-135M Implementation
