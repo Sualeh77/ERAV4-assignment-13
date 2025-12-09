@@ -1,0 +1,5 @@
+torch>=2.9.1
+lightning>=2.6.0
+transformers>=4.57.3
+gradio>=4.44.0
+huggingface-hub>=0.20.0

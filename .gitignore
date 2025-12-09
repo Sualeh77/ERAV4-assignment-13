@@ -12,3 +12,6 @@ wheels/
 # Checkpoints
 checkpoints/
 
+# tensorboard logs
+logs/tensorboard/
+
