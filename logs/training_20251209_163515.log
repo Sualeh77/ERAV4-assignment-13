@@ -1,0 +1,71 @@
+2025-12-09 16:35:15,206 - INFO - Logging to: logs/training_20251209_163515.log
+2025-12-09 16:35:15,206 - INFO - Loading tokenizer...
+2025-12-09 16:35:16,040 - INFO - Loading model config...
+2025-12-09 16:35:16,277 - INFO - Loading dataset from: /Users/qureshsu/Learning/TSAI/ERAV4/session13/data/input.txt
+2025-12-09 16:35:16,738 - INFO - Initializing model...
+2025-12-09 16:35:17,466 - INFO - Starting training...
+2025-12-09 16:35:17,466 - INFO - Resuming from checkpoint: checkpoints/smollm2-step=03500-train_loss=0.1352.ckpt
+2025-12-09 16:35:35,153 - INFO - 
+================================================================================
+2025-12-09 16:35:35,153 - INFO - MODEL SUMMARY
+2025-12-09 16:35:35,153 - INFO - ================================================================================
+2025-12-09 16:35:35,153 - INFO - Model: SmolLM2-135M
+2025-12-09 16:35:35,153 - INFO - Total parameters: 134,515,008
+2025-12-09 16:35:35,153 - INFO - Trainable parameters: 134,515,008
+2025-12-09 16:35:35,153 - INFO - Block size: 512
+2025-12-09 16:35:35,153 - INFO - Warmup steps: 1000
+2025-12-09 16:35:35,153 - INFO - Peak learning rate: 0.0005
+2025-12-09 16:35:35,153 - INFO - Total training steps: 5000
+2025-12-09 16:35:35,153 - INFO - Predict every: 500 steps
+2025-12-09 16:35:35,153 - INFO - ================================================================================
+
+2025-12-09 16:46:13,641 - INFO - Step 4000 | train_loss=0.5093
+2025-12-09 16:46:15,889 - INFO - 
+================================================================================
+2025-12-09 16:46:15,890 - INFO - Step 4000 - Generated text:
+2025-12-09 16:46:15,890 - INFO - First Citizen:
+What a strange news, what he hath done famously
+All slain and g indeed.
+
+KING HENRY VI:
+Hadst thou been kill'd, I would not sh wrong;
+And by that you are, some thou
+2025-12-09 16:46:15,890 - INFO - ================================================================================
+
+2025-12-09 16:56:44,602 - INFO - Step 4500 | train_loss=0.5634
+2025-12-09 16:56:46,770 - INFO - 
+================================================================================
+2025-12-09 16:56:46,770 - INFO - Step 4500 - Generated text:
+2025-12-09 16:56:46,770 - INFO - First Citizen:
+'Tis a nupt in a sword's make him my
+First Citizen:
+Therefore.
+
+First Citizen:
+Is there no hope?
+
+Third Citizen:
+And ta'en! Suffolk, we shall bring all
+
+2025-12-09 16:56:46,770 - INFO - ================================================================================
+
+2025-12-09 17:07:03,502 - INFO - Step 5000 | train_loss=0.0918
+2025-12-09 17:07:06,185 - INFO - 
+================================================================================
+2025-12-09 17:07:06,186 - INFO - Step 5000 - Generated text:
+2025-12-09 17:07:06,186 - INFO - First Citizen:
+You must think of it?
+
+Pedant:
+Ay, I have
+AUTOLYCUS:
+Pray you, who came George to 't last once.
+
+AUTOLYCUS:
+I know
+2025-12-09 17:07:06,186 - INFO - ================================================================================
+
+2025-12-09 17:07:18,753 - INFO - Final checkpoint saved: checkpoints/smollm2-final-step-05000.ckpt
+2025-12-09 17:07:49,059 - INFO - Training completed!
+2025-12-09 17:07:49,060 - INFO - Best checkpoint: /Users/qureshsu/Learning/TSAI/ERAV4/session13/smolLM-135/checkpoints/smollm2-step=05000-train_loss=0.0918.ckpt
+2025-12-09 17:07:49,060 - INFO - Last checkpoint: /Users/qureshsu/Learning/TSAI/ERAV4/session13/smolLM-135/checkpoints/last.ckpt

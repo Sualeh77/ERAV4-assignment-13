@@ -234,9 +234,9 @@ def main():
     block_size = 512
     batch_size = 4
     num_workers = 8
-    max_steps = 3500
+    max_steps = 5000
     predict_every = 500
-    resume_from_checkpoint = "checkpoints/smollm2-step=01500-train_loss=3.6240.ckpt"  # Set to checkpoint path to resume, or None for fresh training
+    resume_from_checkpoint = "checkpoints/smollm2-step=03500-train_loss=0.1352.ckpt"  # Set to checkpoint path to resume, or None for fresh training
     
     # Training hyperparameters from paper
     warmup_steps = 1000

@@ -33,3 +33,48 @@ First Citizen:
 None,
 2025-12-09 15:59:47,488 - INFO - ================================================================================
 
+2025-12-09 16:10:06,586 - INFO - Step 2500 | train_loss=0.9911
+2025-12-09 16:10:08,637 - INFO - 
+================================================================================
+2025-12-09 16:10:08,637 - INFO - Step 2500 - Generated text:
+2025-12-09 16:10:08,637 - INFO - First Citizen:
+He said he: youCLARENCE:
+He hath nopt to die among this case,
+Yet to flatter, shield your wit would not have not right.
+
+LADY ANNE:
+It is it so.
+2025-12-09 16:10:08,637 - INFO - ================================================================================
+
+2025-12-09 16:20:02,546 - INFO - Step 3000 | train_loss=0.6307
+2025-12-09 16:20:04,468 - INFO - 
+================================================================================
+2025-12-09 16:20:04,468 - INFO - Step 3000 - Generated text:
+2025-12-09 16:20:04,468 - INFO - First Citizen:
+Come, let us go in our delay: if
+you guard guard guard Corioli, your rash a
+more in yourple; even your need, the queen,
+Your wives,
+Your loving, bosom, kill into his
+2025-12-09 16:20:04,468 - INFO - ================================================================================
+
+2025-12-09 16:30:01,255 - INFO - Step 3500 | train_loss=0.1352
+2025-12-09 16:30:03,305 - INFO - 
+================================================================================
+2025-12-09 16:30:03,305 - INFO - Step 3500 - Generated text:
+2025-12-09 16:30:03,305 - INFO - First Citizen:
+Nor I.
+
+CORIOLANUS:
+Not now, if it be your will be here.
+
+MENENIUS:
+I tell thee, fellow,
+If thou dost love to see thee,
+
+2025-12-09 16:30:03,305 - INFO - ================================================================================
+
+2025-12-09 16:30:18,743 - INFO - Final checkpoint saved: checkpoints/smollm2-final-step-03500.ckpt
+2025-12-09 16:31:03,806 - INFO - Training completed!
+2025-12-09 16:31:03,807 - INFO - Best checkpoint: /Users/qureshsu/Learning/TSAI/ERAV4/session13/smolLM-135/checkpoints/smollm2-step=03500-train_loss=0.1352.ckpt
+2025-12-09 16:31:03,807 - INFO - Last checkpoint: /Users/qureshsu/Learning/TSAI/ERAV4/session13/smolLM-135/checkpoints/last.ckpt
