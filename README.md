@@ -1,3 +1,15 @@
+---
+title: SmolLM2-135M Text Generator
+emoji: 🐨
+colorFrom: yellow
+colorTo: blue
+sdk: gradio
+sdk_version: 6.0.1
+app_file: app.py
+pinned: false
+short_description: A Llama based SmolLM2-135M Transformer (Decoder only) 135M model trained from scratch on tiny shakespear data for fun
+---
+
 # SmolLM2-135M Implementation
 
 A from-scratch PyTorch implementation of the SmolLM2-135M language model, following the LLaMA architecture with modern optimizations.
