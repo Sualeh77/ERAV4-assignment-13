@@ -10,6 +10,8 @@ pinned: false
 short_description: A Llama based SmolLM2-135M Transformer (Decoder only)
 ---
 
+HuggingFace space for inference demo: https://huggingface.co/spaces/Sualeh77/smollm2-135m-trained-on-tinyShakespear-forfun
+
 # SmolLM2-135M Implementation
 
 A from-scratch PyTorch implementation of the SmolLM2-135M language model, following the LLaMA architecture with modern optimizations.
