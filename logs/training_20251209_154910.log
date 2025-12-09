@@ -1,0 +1,35 @@
+2025-12-09 15:49:10,023 - INFO - Logging to: logs/training_20251209_154910.log
+2025-12-09 15:49:10,023 - INFO - Loading tokenizer...
+2025-12-09 15:49:10,936 - INFO - Loading model config...
+2025-12-09 15:49:11,184 - INFO - Loading dataset from: /Users/qureshsu/Learning/TSAI/ERAV4/session13/data/input.txt
+2025-12-09 15:49:11,623 - INFO - Initializing model...
+2025-12-09 15:49:12,354 - INFO - Starting training...
+2025-12-09 15:49:12,357 - INFO - Resuming from checkpoint: checkpoints/smollm2-step=01500-train_loss=3.6240.ckpt
+2025-12-09 15:49:30,901 - INFO - 
+================================================================================
+2025-12-09 15:49:30,901 - INFO - MODEL SUMMARY
+2025-12-09 15:49:30,901 - INFO - ================================================================================
+2025-12-09 15:49:30,901 - INFO - Model: SmolLM2-135M
+2025-12-09 15:49:30,901 - INFO - Total parameters: 134,515,008
+2025-12-09 15:49:30,901 - INFO - Trainable parameters: 134,515,008
+2025-12-09 15:49:30,901 - INFO - Block size: 512
+2025-12-09 15:49:30,901 - INFO - Warmup steps: 1000
+2025-12-09 15:49:30,901 - INFO - Peak learning rate: 0.0005
+2025-12-09 15:49:30,901 - INFO - Total training steps: 3500
+2025-12-09 15:49:30,901 - INFO - Predict every: 500 steps
+2025-12-09 15:49:30,901 - INFO - ================================================================================
+
+2025-12-09 15:59:45,441 - INFO - Step 2000 | train_loss=0.9070
+2025-12-09 15:59:47,487 - INFO - 
+================================================================================
+2025-12-09 15:59:47,487 - INFO - Step 2000 - Generated text:
+2025-12-09 15:59:47,488 - INFO - First Citizen:
+Why, no; but the Hortenspur, and
+To perricks. Thou art said so when a king
+Hadst thouable to be ruled, and not to forget
+At any man.
+
+First Citizen:
+None,
+2025-12-09 15:59:47,488 - INFO - ================================================================================
+

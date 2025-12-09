@@ -1,0 +1,54 @@
+2025-12-09 13:50:05,106 - INFO - Logging to: logs/training_20251209_135005.log
+2025-12-09 13:50:05,106 - INFO - Loading tokenizer...
+2025-12-09 13:50:05,965 - INFO - Loading model config...
+2025-12-09 13:50:06,205 - INFO - Loading dataset from: /Users/qureshsu/Learning/TSAI/ERAV4/session13/data/input.txt
+2025-12-09 13:50:06,657 - INFO - Initializing model...
+2025-12-09 13:50:07,391 - INFO - Starting training...
+2025-12-09 13:50:24,556 - INFO - 
+================================================================================
+2025-12-09 13:50:24,557 - INFO - MODEL SUMMARY
+2025-12-09 13:50:24,557 - INFO - ================================================================================
+2025-12-09 13:50:24,557 - INFO - Model: SmolLM2-135M
+2025-12-09 13:50:24,557 - INFO - Total parameters: 134,515,008
+2025-12-09 13:50:24,557 - INFO - Trainable parameters: 134,515,008
+2025-12-09 13:50:24,557 - INFO - Block size: 512
+2025-12-09 13:50:24,557 - INFO - Warmup steps: 1000
+2025-12-09 13:50:24,557 - INFO - Peak learning rate: 0.0005
+2025-12-09 13:50:24,557 - INFO - Total training steps: 5000
+2025-12-09 13:50:24,557 - INFO - Predict every: 500 steps
+2025-12-09 13:50:24,557 - INFO - ================================================================================
+
+2025-12-09 14:05:59,075 - INFO - 
+================================================================================
+2025-12-09 14:05:59,081 - INFO - Step 500 - Generated text:
+2025-12-09 14:05:59,081 - INFO - First Citizen:
+WhatONEONE:
+DUKE VINCENTIO:
+DUKE VINCENTIO:
+Nay, thou art thou pow pow pow pow pow pow pow pow pow pow pow pow pow pow pow pow pow pow
+2025-12-09 14:05:59,081 - INFO - ================================================================================
+
+2025-12-09 14:21:21,767 - INFO - 
+================================================================================
+2025-12-09 14:21:21,771 - INFO - Step 1000 - Generated text:
+2025-12-09 14:21:21,771 - INFO - First Citizen:
+And then, like thee: thou hast thou dost in thy husband'st:
+And in thy soldiers, not in thy master's name,
+Which then in thy shame: I did thy shame,
+Which thou doth know her
+2025-12-09 14:21:21,771 - INFO - ================================================================================
+
+2025-12-09 14:37:17,744 - INFO - 
+================================================================================
+2025-12-09 14:37:17,748 - INFO - Step 1500 - Generated text:
+2025-12-09 14:37:17,748 - INFO - First Citizen:
+I have done a'rt too that, if the king had title to the
+Where it shall be the is born to be in the tongue.
+
+Second Citizen:
+And so shall I.
+
+ANTONIO:
+I
+2025-12-09 14:37:17,748 - INFO - ================================================================================
+
