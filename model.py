@@ -241,6 +241,7 @@ class MultiHeadSelfAttention(nn.Module):
             self.hidden_size,
             bias=config.attention_bias,
         )
+        self.o_proj.NANSmolLM_SCALE_INIT = True  # mark for scaled initialization
 
     def forward(
         self,
@@ -357,6 +358,7 @@ class SmolMLP(nn.Module):
             config.hidden_size,   # 576
             bias=config.mlp_bias,
         )
+        self.fc2.NANSmolLM_SCALE_INIT = True     # mark for scaled initialization
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         x = self.fc1(x)# (B,T,C) -> (B,T,2*intermediate_size) -> (B,T,1536*2) -> (B,T,3072)
@@ -431,6 +433,25 @@ class SmolLM2(nn.Module):
 
         # tie weights
         self.lm_head.weight = self.embed_tokens.weight
+
+        # Initialize weights
+        self.apply(self._init_weights)
+
+    def _init_weights(self, module):
+        """
+        Initialize weights for Linear and Embedding layers.
+        For Linear layers with NANGPT_SCALE_INIT attribute, scale std by sqrt(2 * num_layers).
+        """
+        if isinstance(module, nn.Linear):
+            std = 0.02
+            if hasattr(module, 'NANSmolLM_SCALE_INIT'):
+                # Initialize marked linear layers using formula: std = 0.02 * sqrt(2 * num_layers) this 2 x number of layers is because of each block has 2 residual connection. So it actually based on number of residual connection in the model.
+                std *= (2 * self.config.n_layer) ** -0.5
+            torch.nn.init.normal_(module.weight, mean = 0.0, std = std)
+            if module.bias is not None:
+                torch.nn.init.zeros_(module.bias)
+        elif isinstance(module, nn.Embedding):
+            torch.nn.init.normal_(module.weight, mean=0.0, std = 1 / math.sqrt(module.weight.shape[1])) # std should be calculated using embedding vector size with formula: std = 1 / sqrt(embedding_vector_size)
 
     def forward(
         self,
