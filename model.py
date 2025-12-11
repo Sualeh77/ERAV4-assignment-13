@@ -446,7 +446,7 @@ class SmolLM2(nn.Module):
             std = 0.02
             if hasattr(module, 'NANSmolLM_SCALE_INIT'):
                 # Initialize marked linear layers using formula: std = 0.02 * sqrt(2 * num_layers) this 2 x number of layers is because of each block has 2 residual connection. So it actually based on number of residual connection in the model.
-                std *= (2 * self.config.n_layer) ** -0.5
+                std *= (2 * self.config.num_hidden_layers) ** -0.5
             torch.nn.init.normal_(module.weight, mean = 0.0, std = std)
             if module.bias is not None:
                 torch.nn.init.zeros_(module.bias)

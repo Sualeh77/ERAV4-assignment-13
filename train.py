@@ -13,6 +13,7 @@ import sys
 import logging
 from pathlib import Path
 from datetime import datetime
+import time
 
 import torch
 import torch.nn as nn
@@ -118,7 +119,7 @@ class SmolLM2Module(L.LightningModule):
         warmup_steps: int = 2000,
         peak_lr: float = 5e-4,
         total_steps: int = 5000,
-        predict_every: int = 500,
+        predict_every: int = 1, # Make it 500 for final training.
     ):
         super().__init__()
         self.save_hyperparameters(ignore=['tokenizer'])
@@ -136,6 +137,8 @@ class SmolLM2Module(L.LightningModule):
         # Loss function
         self.criterion = nn.CrossEntropyLoss()
         
+        self._batch_start_time = None
+        
         # For generation
         self.example_prompt = "First Citizen:"
         
@@ -143,6 +146,9 @@ class SmolLM2Module(L.LightningModule):
         logits, present_key_values = self.model(input_ids, attention_mask=attention_mask, use_cache=False)
         return logits
     
+    def on_train_batch_start(self, batch, batch_idx):
+        self._batch_start_time = time.perf_counter()
+
     def training_step(self, batch, batch_idx):
         x, y = batch
         logits = self.forward(x)
@@ -160,6 +166,15 @@ class SmolLM2Module(L.LightningModule):
             self.generate_and_log()
         
         return loss
+
+    def on_train_batch_end(self, outputs, batch, batch_idx):
+        # Ensure GPU work is finished before timing
+        if torch.cuda.is_available():
+            torch.cuda.synchronize()
+        if self._batch_start_time is None:
+            return
+        dt = time.perf_counter() - self._batch_start_time  # seconds
+        logger.info(f"step {self.global_step + 1} | dt: {dt*1000:.2f} ms")
     
     def generate_and_log(self):
         """Generate text and log it."""
@@ -171,6 +186,10 @@ class SmolLM2Module(L.LightningModule):
                 return_tensors='pt',
                 add_special_tokens=False
             ).to(self.device)
+
+            if torch.cuda.is_available():
+                torch.cuda.synchronize()
+            t0 = time.perf_counter()
             
             # Generate
             generated_ids = self.model.generate(
@@ -179,6 +198,13 @@ class SmolLM2Module(L.LightningModule):
                 temperature=0.8,
                 top_k=50,
             )
+
+            if torch.cuda.is_available():
+                torch.cuda.synchronize()
+            dt = time.perf_counter() - t0
+            new_tokens = generated_ids.shape[1] - prompt_ids.shape[1]
+            toks_per_sec = new_tokens / dt if dt > 0 else float("inf")
+            logger.info(f"Generation | new_tokens: {new_tokens} | dt: {dt*1000:.2f} ms | tok/s: {toks_per_sec:,.0f}")
             
             # Decode
             generated_text = self.tokenizer.decode(
@@ -235,7 +261,7 @@ def main():
     batch_size = 4
     num_workers = 8
     max_steps = 5000
-    predict_every = 500
+    predict_every = 1 # Make it 500 for final training.
     resume_from_checkpoint = "checkpoints/smollm2-step=03500-train_loss=0.1352.ckpt"  # Set to checkpoint path to resume, or None for fresh training
     
     # Training hyperparameters from paper
