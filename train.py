@@ -253,6 +253,9 @@ class SmolLM2Module(L.LightningModule):
 
 
 def main():
+    # Set matmul precision for faster training
+    torch.set_float32_matmul_precision('high')
+    
     # Configuration
     data_file = Path("../data/input.txt").resolve()
     output_dir = Path("./checkpoints")
@@ -317,6 +320,9 @@ def main():
         total_steps=total_steps,
         predict_every=predict_every,
     )
+
+    # torch.compile it doesn't work on mac or windows can be used on linux (AWS)
+    # model = torch.compile(model)
     
     # Additional callback to ensure checkpoint at final step
     class FinalCheckpointCallback(L.Callback):
