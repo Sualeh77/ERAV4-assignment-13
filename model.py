@@ -285,43 +285,32 @@ class MultiHeadSelfAttention(nn.Module):
             v = v.repeat_interleave(repeat_factor, dim=1)  # (B, n_kv_heads, seq_len, d) -> (B, n_heads, seq_len, d)
 
         # Attention scores: (B,h,T,d) @ (B,h,d,seq_len) -> (B,h,T,seq_len)
-        scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.head_dim)
-
-        # Causal mask: prevent attending to future tokens
-        # For inference with KV cache, we only need to mask the current position
+        # Use Flash Attention instead of manual computation
+        # Flash Attention handles causal masking internally with is_causal=True
+        # For KV cache, we need to handle masking differently
         if past_key_value is None:
-            # Full sequence: mask all future positions
-            causal_mask = torch.full(
-                (T, T), float("-inf"), device=x.device, dtype=x.dtype
-            ).triu(1)  # upper triangle (i < j)
-            scores = scores + causal_mask.unsqueeze(0).unsqueeze(0) # (B,h,T,T) + (1,1,T,T) -> (B,h,T,T)
+            # Full sequence: use causal mask
+            out = F.scaled_dot_product_attention(
+                q, k, v,
+                is_causal=True,
+                scale=1.0 / math.sqrt(self.head_dim),
+            )
         else:
-            # With KV cache: only mask positions beyond current (shouldn't happen, but safety)
-            # Since we're generating one token at a time, T=1, and we attend to all past + current
-            pass
+            # With KV cache: no causal mask needed (already handled by cache structure)
+            # But we still need to handle attention_mask if provided
+            attn_mask = None
+            if attention_mask is not None:
+                # Convert attention_mask to the right format for Flash Attention
+                if attention_mask.dim() == 2:
+                    attn_mask = attention_mask[:, None, None, :]
+                attn_mask = attn_mask.expand(B, self.n_heads, T, seq_len)
 
-        # Optional attention mask (e.g., padding). Should be additive (0 or -inf).
-        if attention_mask is not None:
-            # Expect attention_mask as (B, 1, 1, seq_len) or (B, seq_len)
-            if attention_mask.dim() == 2:
-                # (B, seq_len) -> (B,1,1,seq_len)
-                attention_mask = attention_mask[:, None, None, :]
-            # Adjust mask shape if needed
-            if attention_mask.shape[-1] != seq_len:
-                # For inference, we might need to extend the mask
-                if past_key_value is not None:
-                    # Extend mask to include past positions (all 0s for past, current mask for new token)
-                    past_len = past_k.shape[2]
-                    extended_mask = torch.zeros(B, 1, 1, seq_len, device=attention_mask.device, dtype=attention_mask.dtype)
-                    extended_mask[..., past_len:] = attention_mask[..., -T:]
-                    attention_mask = extended_mask
-            scores = scores + attention_mask
-        
-        # Softmax over last dim (seq_len)
-        probs = F.softmax(scores, dim=-1)  # (B,h,T,seq_len) -> (B,h,T,seq_len)
-
-        # Weighted sum of values
-        out = torch.matmul(probs, v)  # (B,h,T,seq_len) @ (B,h,seq_len,d) -> (B,h,T,d)
+            out = F.scaled_dot_product_attention(
+                q, k, v,
+                attn_mask=attn_mask,
+                is_causal=False,  # Already handled by KV cache
+                scale=1.0 / math.sqrt(self.head_dim),
+            )
 
         # Reshape back: (B,T,C)
         out = out.transpose(1, 2).contiguous().view(B, T, C) # (B,h,T,d) -> (B,T,h,d) -> (B,T,h*d) -> (B,T,C)
